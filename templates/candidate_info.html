@@ -1,0 +1,19 @@
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<p>
+<img src="{{candidate.picture}}">
+<article><link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    Имя кандидата: {{candidate.name}}</article>
+<article><link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    Позиция: {{candidate.position}}</article>
+<article><link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    Навыки: {{candidate.skills}}</article>
+</p>
+
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 import json
-from flask import Flask
+from flask import Flask, render_template
 from jinja2.ext import debug
 
 app = Flask(__name__)
@@ -10,26 +10,22 @@ print(candidates_data)
 
 @app.route("/")
 def page_index():
-    site_str = ''
-    for candidate in candidates_data:
-        site_str = site_str + f"<pre>\nИмя: {candidate['name']}\nПозиция кандидата: {candidate['position']}\nНавыки: {candidate['skills']}"
-    #print(site_str)
-    return site_str
+    return render_template('main_screen.html',candidates=candidates_data)
 
 @app.route("/candidate/<int:uid>")
 def candidate_recall(uid):
     for candidate in candidates_data:
         if candidate['id'] == uid:
-            return f"<img src={candidate['picture']}><pre>\nИмя: {candidate['name']}\nПозиция кандидата: {candidate['position']}\nНавыки: {candidate['skills']}"
+            return render_template('candidate_info.html',candidate=candidate)
 
 @app.route("/skill/<skill>")
 def skill_search(skill):
-    site_str = ''
+    site = []
     skill_ = skill.lower()
     for candidate in candidates_data:
         sk = candidate['skills'].split(', ')
         for skill_i in sk:
             if skill_i.lower() == skill_:
-                site_str = site_str + f"<pre>\nИмя: {candidate['name']}\nПозиция кандидата: {candidate['position']}\nНавыки: {candidate['skills']}"
-    return site_str
+                site.append(candidate)
+    return render_template('skill_search.html',candidates = site)
 app.run(debug=True)
